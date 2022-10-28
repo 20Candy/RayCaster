@@ -25,14 +25,13 @@ def pixel(x, y, width, height,color):
                                   
 
 #-------------------------------------------
-
 def vecinos(grid, x, y):
-    offsets = [(-1, -1), (0, -1), (1, -1), (-1, 0),
-               (1, 0), (-1, 1), (0, 1), (1, 1)]
-    isible_neighbours = {(x + x_add, y + y_add) for x_add, y_add in offsets}
-    alive = {(i[0], i[1])
-             for i in isible_neighbours if i in grid}
-    dead = isible_neighbours - alive
+    #la celda tiene 8 vecinos
+    vecino = {(x+1,y),(x-1,y),(x,y+1),(x,y-1),(x+1,y+1),(x-1,y-1),(x+1,y-1),(x-1,y+1)}
+
+    #celdas vivas y muertas
+    alive = {(i[0], i[1]) for i in vecino if i in grid}
+    dead = vecino - alive
 
     return alive, dead
     
@@ -61,8 +60,7 @@ def upgrade(grid):
     return nuevo
 
 #-------------------------------------------
-
-def draw(screen: pygame.Surface, grid: grid) -> None:
+def draw(screen: pygame.Surface, grid: grid) :
     width = screen.get_width() / 50
     height = screen.get_height() / 50
     border = 2
